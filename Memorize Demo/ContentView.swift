@@ -52,6 +52,7 @@ struct ContentView: View {
                             isThemeSelected = Array(repeating: false, count: themes.count)
                             isThemeSelected[index] = true
                         }) {
+//                          Theme
                             VStack {
 //                              check theme is selelcted if not is will be ? icon
                                 Image(systemName: isThemeSelected[index] ? themes[index].symbol : "questionmark.circle")
@@ -78,26 +79,28 @@ struct Theme {
 
 struct CardView: View {
     let content: String
-    @State var isFaceUp = true
+    @State var isFaceUp = false
     
     var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
             if isFaceUp {
                 base.foregroundColor(.white)
-                base.strokeBorder(lineWidth: 2)
+                base.stroke(lineWidth: 2)
                 Text(content).font(.largeTitle)
             } else {
-                base
+                base.foregroundColor(.pink)
+                base.stroke(lineWidth: 2)
+//              Use for make card size before and after open are equal.
+                Text(" ").font(.largeTitle)
             }
         }
         .onTapGesture {
             isFaceUp.toggle()
+            
         }
     }
 }
-
-
 
 
 
