@@ -10,28 +10,27 @@ struct ContentView: View {
     let themes: [Theme] = [
         Theme(symbol: "globe.central.south.asia", name: "Country", emojis: ["🇹🇭", "🇯🇵", "🇰🇷", "🇺🇸", "🇬🇧", "🇫🇷", "🇨🇳", "🇮🇳", "🇹🇭", "🇯🇵", "🇰🇷", "🇺🇸", "🇬🇧", "🇫🇷", "🇨🇳", "🇮🇳"])
 ,
-        Theme(symbol: "car.fill",name:"car" ,emojis: ["🚗", "🚕", "🚙", "🚌", "🏎", "🚓", "🚑", "🚒", "🚜","🚗", "🚕", "🚙", "🚌", "🏎", "🚓", "🚑", "🚒", "🚜"]),
-        Theme(symbol: "briefcase.fill",name:"career" ,emojis: ["👮‍♂️", "👩‍🍳", "👨‍🌾", "👩‍🔬", "👨‍🎨", "👩‍🚀", "👨‍🔧", "👩‍⚖️","👮‍♂️", "👩‍🍳", "👨‍🌾", "👩‍🔬", "👨‍🎨", "👩‍🚀", "👨‍🔧", "👩‍⚖️"])
+        Theme(symbol: "car.fill",name:"Car" ,emojis: ["🚗", "🚕", "🚙", "🚌", "🏎", "🚓", "🚑", "🚒", "🚜","🚗", "🚕", "🚙", "🚌", "🏎", "🚓", "🚑", "🚒", "🚜"]),
+        Theme(symbol: "briefcase.fill",name:"Career" ,emojis: ["👮‍♂️", "👩‍🍳", "👨‍🌾", "👩‍🔬", "👨‍🎨", "👩‍🚀", "👨‍🔧", "👩‍⚖️","👮‍♂️", "👩‍🍳", "👨‍🌾", "👩‍🔬", "👨‍🎨", "👩‍🚀", "👨‍🔧", "👩‍⚖️"])
     ]
     
     @State private var currentThemeIndex = 0
 //  add this state for change theme icon when selected.
     @State private var isThemeSelected: [Bool] = [true, false, false]
-    @State var cardCount = 4
+
     
     
     var body: some View {
             VStack {
-                Spacer(minLength: 0)
                 Text("Memorize!")
                     .font(.largeTitle)
                     .padding(.horizontal)
                     .foregroundColor(.red)
                     .bold()
-                
+//              Card manage
                 let currentEmojis = Array(themes[currentThemeIndex].emojis.shuffled().prefix(16))  // random 16 emojis
                 
-
+//              Loop for add emojis card
                 ForEach(0..<4, id: \.self) { row in
                     HStack(spacing: 8) { // add space for each card
                         ForEach(0..<4, id: \.self) { column in
@@ -43,16 +42,14 @@ struct ContentView: View {
                 }
                 .foregroundColor(.pink)
 
-                
+//              Theme manage
                 HStack {
                     ForEach(themes.indices, id: \.self) { index in
                         Button(action: {
                             currentThemeIndex = index
-                            cardCount = 4
                             isThemeSelected = Array(repeating: false, count: themes.count)
                             isThemeSelected[index] = true
                         }) {
-//                          Theme
                             VStack {
 //                              check theme is selelcted if not is will be ? icon
                                 Image(systemName: isThemeSelected[index] ? themes[index].symbol : "questionmark.circle")
